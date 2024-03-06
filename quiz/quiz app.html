@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="QuizApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AngularJS Quiz App</title>
+  <style>
+    /* Add your CSS styling here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body ng-controller="QuizController">
+  <div class="container">
+    <h1>AngularJS Quiz App</h1>
+    <div ng-show="!quizFinished">
+      <div class="question">{{ currentQuestion.question }}</div>
+      <div class="options">
+        <label ng-repeat="option in currentQuestion.options">
+          <input type="radio" ng-model="selectedOption" ng-value="option">{{ option }}
+        </label>
+      </div>
+      <button ng-click="nextQuestion()">Next</button>
+    </div>
+    <div class="result" ng-show="quizFinished">
+      <p>Your score: {{ score }}/{{ questions.length }}</p>
+      <p ng-if="score === questions.length">Congratulations! You got all correct!</p>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    angular.module('QuizApp', [])
+    .controller('QuizController', function($scope) {
+      $scope.questions = [
+        {
+          question: 'What is the capital of France?',
+          options: ['Paris', 'London', 'Berlin', 'Rome'],
+          correctAnswer: 'Paris'
+        },
+        {
+          question: 'What is 2 + 2?',
+          options: ['3', '4', '5', '6'],
+          correctAnswer: '4'
+        },
+        {
+          question: 'Which planet is known as the Red Planet?',
+          options: ['Earth', 'Mars', 'Jupiter', 'Venus'],
+          correctAnswer: 'Mars'
+        }
+      ];
+
+      $scope.currentQuestionIndex = 0;
+      $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex];
+      $scope.selectedOption = '';
+
+      $scope.score = 0;
+      $scope.quizFinished = false;
+
+      $scope.nextQuestion = function() {
+        if ($scope.selectedOption === $scope.currentQuestion.correctAnswer) {
+          $scope.score++;
+        }
+        if ($scope.currentQuestionIndex < $scope.questions.length - 1) {
+          $scope.currentQuestionIndex++;
+          $scope.currentQuestion = $scope.questions[$scope.currentQuestionIndex];
+          $scope.selectedOption = '';
+        } else {
+          $scope.quizFinished = true;
+        }
+      };
+    });
+  </script>
+</body>
+</html>

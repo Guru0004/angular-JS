@@ -1,0 +1,52 @@
+ body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff9a7;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffef0e;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .task {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+        }
+        .task input[type="text"] {
+            width: 70%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .task input[type="text"]:focus {
+            outline: none;
+            background-color: #fff;
+        }
+        .task button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .task button.edit-btn {
+            background-color: #ffc107;
+            color: #333;
+        }
+        .task button.delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .task button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }

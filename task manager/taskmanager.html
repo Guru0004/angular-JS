@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskListApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Task List Manager</title>
+    <link rel="stylesheet" type="text/css" href="tm.css">
+</head>
+<body>
+    <div class="container" ng-controller="TaskListController">
+        <h2 style="text-align: center;">Dynamic Task List Manager</h2>
+        <div class="task" ng-repeat="task in tasks track by $index">
+            <input type="text" ng-model="task.name" ng-disabled="task.editing" style="margin-right: 10px;">
+            <button ng-click="editTask($index)" class="edit-btn">{{ task.editing ? 'Save' : 'Edit' }}</button>
+            <button ng-click="deleteTask($index)" class="delete-btn">Delete</button>
+        </div>
+        <button ng-click="addTask()" style="background-color: #28a745; color: #fff; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;">Add Task</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        angular.module('taskListApp', [])
+            .controller('TaskListController', function($scope) {
+                $scope.tasks = [];
+
+                $scope.addTask = function() {
+                    $scope.tasks.push({name: '', editing: false});
+                };
+
+                $scope.editTask = function(index) {
+                    if ($scope.tasks[index].editing) {
+                        $scope.tasks[index].editing = false;
+                    } else {
+                        $scope.tasks[index].editing = true;
+                    }
+                };
+
+                $scope.deleteTask = function(index) {
+                    $scope.tasks.splice(index, 1);
+                };
+            });
+
+    </script>
+</body>
+</html>
